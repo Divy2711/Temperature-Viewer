@@ -1,0 +1,40 @@
+pipeline {
+	agent any
+
+	tools {
+		maven "Maven"
+	}
+
+	stages {
+        stage('Checkout'){
+            steps{
+            git 'https://github.com/Divy2711/Temperature-Viewer.git'
+            }
+        }
+		stage('Build'){
+			steps {
+                
+				sh 'mvn clean package'
+			}
+		}
+
+		stage('Test'){
+			steps{
+				sh 'mvn test'
+			}
+		}
+
+		stage('Deploy') {
+			steps {
+			    deploy adapters: [tomcat9(credentialsId: '62b420ea-0aa1-440f-88ce-1a587ff5fa71', path: '', url: 'http://100.28.90.225:9000/')], contextPath: 'temp-pipeline', onFailure: false, war: 'target/*.war'
+			}
+
+            post{
+                success{
+                    archiveArtifacts artifacts: 'target/*.war', followSymlinks: false, onlyIfSuccessful: true
+                }
+            }
+		}
+
+	}
+}
