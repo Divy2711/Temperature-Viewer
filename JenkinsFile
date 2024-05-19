@@ -13,7 +13,7 @@ pipeline {
         }
 		stage('Build'){
 			steps {
-                
+                                echo "Start building the project"
 				sh 'mvn clean package'
 			}
 		}
@@ -26,6 +26,7 @@ pipeline {
 
 		stage('Deploy') {
 			steps {
+                            echo "Start Deployment"
 			    deploy adapters: [tomcat9(credentialsId: '62b420ea-0aa1-440f-88ce-1a587ff5fa71', path: '', url: 'http://100.28.90.225:9000/')], contextPath: 'temp', onFailure: false, war: 'target/*.war'
 			}
 
