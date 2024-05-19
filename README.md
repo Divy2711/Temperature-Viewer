@@ -18,3 +18,9 @@ Jenkins Multi Branch Pipeline: A multi-branch pipeline is a concept of automatic
 
 Multi-branch pipeline supports PR based branch discovery. Meaning, branches get discovered automatically in the pipeline if someone raises a PR (pull request) from a branch. If you have this configuration enabled, builds will get triggered only if a PR is raised. 
 
+<b>Here is how the multi-branch pipeline works.<b>
+
+When a developer creates a PR from a feature branch to develop a branch, Github sends a webhook with the  PR information to Jenkins.
+Jenkins receives the PR and finds the relevant multibranch pipeline, and creates a feature branch pipeline automatically. It then runs the jobs with the steps mentioned in the Jenkinsfile from the feature branch. During checkout, the source and target branches in the PR gets merged. The PR merge will be blocked on Github until a build status from Jenkins is returned.
+Once the build finishes, Jenkins will update the status to Github PR. Now you will be able to merge the code. If you want to check the Jenkins build logs, you can find the Jenkins build log link in the PR status.
+
