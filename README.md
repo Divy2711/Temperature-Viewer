@@ -24,3 +24,7 @@ When a developer creates a PR from a feature branch to develop a branch, Github 
 Jenkins receives the PR and finds the relevant multibranch pipeline, and creates a feature branch pipeline automatically. It then runs the jobs with the steps mentioned in the Jenkinsfile from the feature branch. During checkout, the source and target branches in the PR gets merged. The PR merge will be blocked on Github until a build status from Jenkins is returned.
 Once the build finishes, Jenkins will update the status to Github PR. Now you will be able to merge the code. If you want to check the Jenkins build logs, you can find the Jenkins build log link in the PR status.
 
+Configure Webhook For Multibranch Pipeline
+
+Add your Jenkins URL followed by “token name” under payload URL. Select the content type as “application/json” and click “Add Webhook”
+
